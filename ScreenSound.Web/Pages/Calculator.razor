@@ -1,0 +1,36 @@
+﻿<h1>Simulando seu emprétimo no ByteBank</h1>
+
+<label for="valor">Valor do empréstimo (em reais)</label>
+<br />
+<input type="number" id="valor" @bind="valor" />
+<br/>
+
+<label for="parcelas">Número de parcelas</label>
+<br/>
+<input type="number" id="parcelas" @bind="parcelas" />
+<br/>
+<br/>
+
+<button @onclick="calcular">Calcular</button>
+<br/>
+<br/>
+
+@if (total > 0)
+{
+    <p>O total a ser pago é de R$ @total.ToString("N2")</p>
+    <p>O valor de cada parcela é de R$ @valorParcela.ToString("N2")</p>
+}
+
+
+@code {
+    private double valor { get; set; }
+    private int parcelas { get; set; }
+    private double total { get; set; }
+    private double valorParcela { get; set; }
+
+    private void calcular()
+    {
+        total = valor + (valor * (parcelas * 0.0284));
+        valorParcela = Math.Round(total / parcelas);
+    }
+}
